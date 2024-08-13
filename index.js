@@ -1,7 +1,21 @@
 require('dotenv').config()
-const { Client, ActivityType } = require('discord.js')
+const { Client, ActivityType, IntentsBitField } = require('discord.js')
+const express = require('express')
+const app = express()
 
-const client = new Client()
+app.all('/', (_req, res) => {
+    res.send('En desarollo').status(200)
+})
+
+app.listen(3021, () => {
+    console.log('Escuchando el puerto 3021')
+})
+
+const client = new Client({
+    intents: [
+        IntentsBitField.Flags.Guilds
+    ]
+})
 
 client.on('ready', (clientReady) => {
     clientReady.user.setPresence({
